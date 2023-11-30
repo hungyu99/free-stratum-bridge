@@ -9,12 +9,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/karlsen-network/karlsen-stratum-bridge/src/gostratum"
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/pow"
-	"github.com/karlsen-network/karlsend/infrastructure/network/rpcclient"
+	"github.com/hungyu99/free-stratum-bridge/src/gostratum"
+	"github.com/hungyu99/freed/app/appmessage"
+	"github.com/hungyu99/freed/domain/consensus/model/externalapi"
+	"github.com/hungyu99/freed/domain/consensus/utils/consensushashing"
+	"github.com/hungyu99/freed/domain/consensus/utils/pow"
+	"github.com/hungyu99/freed/infrastructure/network/rpcclient"
 	"github.com/pkg/errors"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
@@ -32,16 +32,16 @@ type WorkStats struct {
 }
 
 type shareHandler struct {
-	karlsen      *rpcclient.RPCClient
+	free      *rpcclient.RPCClient
 	stats        map[string]*WorkStats
 	statsLock    sync.Mutex
 	overall      WorkStats
 	tipBlueScore uint64
 }
 
-func newShareHandler(karlsen *rpcclient.RPCClient) *shareHandler {
+func newShareHandler(free *rpcclient.RPCClient) *shareHandler {
 	return &shareHandler{
-		karlsen:   karlsen,
+		free:   free,
 		stats:     map[string]*WorkStats{},
 		statsLock: sync.Mutex{},
 	}
@@ -233,7 +233,7 @@ func (sh *shareHandler) submit(ctx *gostratum.StratumContext,
 		Header:       mutable.ToImmutable(),
 		Transactions: block.Transactions,
 	}
-	_, err := sh.karlsen.SubmitBlock(block)
+	_, err := sh.free.SubmitBlock(block)
 	blockhash := consensushashing.BlockHash(block)
 	// print after the submit to get it submitted faster
 	ctx.Logger.Info(fmt.Sprintf("Submitted block %s", blockhash))

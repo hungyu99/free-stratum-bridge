@@ -8,7 +8,7 @@ CONF=$CUSTOM_USER_CONFIG
 
 if [ -z "$var" ]
 then
-        CONF+=" -karlsen=$CUSTOM_URL"
+        CONF+=" -free=$CUSTOM_URL"
 fi
 
 echo -e "$CONF" > $MINER_CONFIG

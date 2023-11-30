@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/karlsen-network/karlsen-stratum-bridge/src/gostratum"
+	"github.com/hungyu99/free-stratum-bridge/src/gostratum"
 	"github.com/mattn/go-colorable"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -76,7 +76,7 @@ func ListenAndServe(cfg BridgeConfig) error {
 		go http.ListenAndServe(cfg.HealthCheckPort, nil)
 	}
 
-	shareHandler := newShareHandler(ksApi.karlsend)
+	shareHandler := newShareHandler(ksApi.freed)
 	minDiff := cfg.MinShareDiff
 	if minDiff < 1 {
 		minDiff = 1

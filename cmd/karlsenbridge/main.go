@@ -8,7 +8,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/karlsen-network/karlsen-stratum-bridge/src/karlsenstratum"
+	"github.com/hungyu99/free-stratum-bridge/src/karlsenstratum"
 	"gopkg.in/yaml.v2"
 )
 
@@ -29,7 +29,7 @@ func main() {
 
 	flag.StringVar(&cfg.StratumPort, "stratum", cfg.StratumPort, "stratum port to listen on, default `:5555`")
 	flag.BoolVar(&cfg.PrintStats, "stats", cfg.PrintStats, "true to show periodic stats to console, default `true`")
-	flag.StringVar(&cfg.RPCServer, "karlsen", cfg.RPCServer, "address of the karlsend node, default `localhost:42110`")
+	flag.StringVar(&cfg.RPCServer, "free", cfg.RPCServer, "address of the freed node, default `localhost:22110`")
 	flag.DurationVar(&cfg.BlockWaitTime, "blockwait", cfg.BlockWaitTime, "time in ms to wait before manually requesting new block, default `500`")
 	flag.UintVar(&cfg.MinShareDiff, "mindiff", cfg.MinShareDiff, "minimum share difficulty to accept from miner(s), default `4`")
 	flag.UintVar(&cfg.ExtranonceSize, "extranonce", cfg.ExtranonceSize, "size in bytes of extranonce, default `0`")

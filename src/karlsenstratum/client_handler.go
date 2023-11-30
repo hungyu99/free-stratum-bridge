@@ -9,7 +9,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/karlsen-network/karlsen-stratum-bridge/src/gostratum"
+	"github.com/hungyu99/free-stratum-bridge/src/gostratum"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
@@ -105,11 +105,11 @@ func (c *clientListener) NewBlockAvailable(kapi *KarlsenApi) {
 			if err != nil {
 				if strings.Contains(err.Error(), "Could not decode address") {
 					RecordWorkerError(client.WalletAddr, ErrInvalidAddressFmt)
-					client.Logger.Error(fmt.Sprintf("failed fetching new block template from karlsen, malformed address: %s", err))
+					client.Logger.Error(fmt.Sprintf("failed fetching new block template from free, malformed address: %s", err))
 					client.Disconnect() // unrecoverable
 				} else {
 					RecordWorkerError(client.WalletAddr, ErrFailedBlockFetch)
-					client.Logger.Error(fmt.Sprintf("failed fetching new block template from karlsen: %s", err))
+					client.Logger.Error(fmt.Sprintf("failed fetching new block template from free: %s", err))
 				}
 				return
 			}
@@ -175,9 +175,9 @@ func (c *clientListener) NewBlockAvailable(kapi *KarlsenApi) {
 		c.lastBalanceCheck = time.Now()
 		if len(addresses) > 0 {
 			go func() {
-				balances, err := kapi.karlsend.GetBalancesByAddresses(addresses)
+				balances, err := kapi.freed.GetBalancesByAddresses(addresses)
 				if err != nil {
-					c.logger.Warn("failed to get balances from karlsen, prom stats will be out of date", zap.Error(err))
+					c.logger.Warn("failed to get balances from free, prom stats will be out of date", zap.Error(err))
 					return
 				}
 				RecordBalances(balances)
